@@ -4,10 +4,10 @@ from config.settings import DATABASE
 print(DATABASE)
 
 database = MySQLDatabase(
-    DATABASE["DB_NAME"],
-    user=DATABASE["DB_USER"],
-    passwd=DATABASE["DB_PASSWORD"],
-    host=DATABASE["DB_HOST"],
+    DATABASE["name"],
+    user=DATABASE["user"],
+    passwd=DATABASE["password"],
+    host=DATABASE["host"],
     port=DATABASE["port"],
 )
 
