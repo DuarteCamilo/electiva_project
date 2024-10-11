@@ -61,6 +61,7 @@ async def delete_user(user_id: int):
 
 @user_route.post("/login", dependencies=None)
 async def login(email:str, password_hash:str):
+    """Logs in a user by verifying the email and password hash."""
     user = UserModel.get(UserModel.email == email)
     if user:
         if user.password_hash == password_hash:
