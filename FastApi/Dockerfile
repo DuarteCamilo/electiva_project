@@ -10,5 +10,4 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y mariadb-client &&
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "9000"]
