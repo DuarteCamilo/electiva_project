@@ -1,12 +1,13 @@
-# settings.py
-from dotenv import load_dotenv
+"""Configuration settings for the application."""
+
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
 DATABASE = {
     "name": os.getenv("MYSQL_DATABASE"),
-    "engine": "peewee.MySQLDatabase",  # MySQL como motor de base de datos
+    "engine": "peewee.MySQLDatabase",
     "user": os.getenv("MYSQL_USER"),
     "password": os.getenv("MYSQL_PASSWORD"),
     "host": os.getenv("MYSQL_HOST"),
