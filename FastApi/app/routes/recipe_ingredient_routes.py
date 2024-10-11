@@ -1,6 +1,11 @@
-from schemas.recipe_ingredient_schema import RecipeIngredient
-from database import RecipeIngredientModel, RecipeModel, IngredientModel
+"""
+This module handles the routes for managing recipe ingredients, allowing users to 
+add, retrieve, and delete ingredients associated with recipes in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.recipe_ingredient_schema import RecipeIngredient
+from config.database import RecipeIngredientModel, RecipeModel, IngredientModel
 
 recipe_ingredient_route = APIRouter()
 
@@ -30,7 +35,9 @@ async def read_all_recipe_ingredients():
 async def read_recipe_ingredient(recipe_ingredient_id: int):
     """Retrieve a specific recipe ingredient by its ID."""
     try:
-        recipe_ingredient = RecipeIngredientModel.get(RecipeIngredientModel.id == recipe_ingredient_id)
+        recipe_ingredient = (
+            RecipeIngredientModel.get(RecipeIngredientModel.id == recipe_ingredient_id)
+        )
         return recipe_ingredient
     except Exception as exc:
         raise HTTPException(status_code=404, detail="Recipe ingredient not found") from exc
@@ -38,7 +45,11 @@ async def read_recipe_ingredient(recipe_ingredient_id: int):
 @recipe_ingredient_route.delete("/{recipe_ingredient_id}")
 async def delete_recipe_ingredient(recipe_ingredient_id: int):
     """Remove an ingredient from a recipe by its ID."""
-    rows_deleted = RecipeIngredientModel.delete().where(RecipeIngredientModel.id == recipe_ingredient_id).execute()
+    rows_deleted = (
+        RecipeIngredientModel.delete()
+        .where(RecipeIngredientModel.id == recipe_ingredient_id)
+        .execute()
+    )
     if rows_deleted:
         return {"message": "Recipe ingredient deleted successfully"}
     raise HTTPException(status_code=404, detail="Recipe ingredient not found")

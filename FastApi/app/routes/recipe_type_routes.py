@@ -1,6 +1,11 @@
-from schemas.recipe_type_schema import RecipeType
-from database import RecipeTypeModel
+"""
+This module handles the routes for managing recipe types, 
+allowing users to create, retrieve, update, and delete recipe types.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.recipe_type_schema import RecipeType
+from config.database import RecipeTypeModel
 
 recipe_type_route = APIRouter()
 
@@ -39,7 +44,11 @@ async def update_recipe_type(recipe_type_id: int, recipe_type: RecipeType = Body
 @recipe_type_route.delete("/{recipe_type_id}")
 async def delete_recipe_type(recipe_type_id: int):
     """Delete a recipe type by its ID."""
-    rows_deleted = RecipeTypeModel.delete().where(RecipeTypeModel.id == recipe_type_id).execute()
+    rows_deleted = (
+        RecipeTypeModel.delete()
+        .where(RecipeTypeModel.id == recipe_type_id)
+        .execute()
+    )
     if rows_deleted:
         return {"message": "Recipe type deleted successfully"}
     raise HTTPException(status_code=404, detail="Recipe type not found")

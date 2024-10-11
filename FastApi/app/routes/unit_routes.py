@@ -1,6 +1,11 @@
-from schemas.unit_schema import Unit
-from database import UnitModel
+"""
+This module handles the routes for managing units,
+allowing users to create, retrieve, update, and delete their units.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.unit_schema import Unit
+from config.database import UnitModel
 
 unit_route = APIRouter()
 

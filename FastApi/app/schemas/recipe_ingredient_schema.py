@@ -1,3 +1,9 @@
+"""Schemas for the Recipe Ingredient feature in the application.
+
+This module defines Pydantic models that represent the structure
+and validation for recipe ingredients within the application.
+"""
+
 from pydantic import BaseModel
 
 class RecipeIngredient(BaseModel):

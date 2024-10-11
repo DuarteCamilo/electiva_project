@@ -1,6 +1,11 @@
-from schemas.menu_schema import Menu
-from database import MenuModel
+"""
+This module handles the routes for managing menus, allowing users to create,
+retrieve, update, and delete menus in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.menu_schema import Menu
+from config.database import MenuModel
 
 menu_route = APIRouter()
 

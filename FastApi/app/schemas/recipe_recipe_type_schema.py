@@ -1,3 +1,9 @@
+"""Schemas for the Recipe-Recipe Type relationship in the application.
+
+This module defines Pydantic models that represent the structure
+and validation for the relationship between recipes and their types.
+"""
+
 from pydantic import BaseModel
 
 class RecipeRecipeType(BaseModel):

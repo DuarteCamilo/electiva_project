@@ -1,6 +1,11 @@
-from schemas.notification_schema import Notification
-from database import NotificationModel
+"""
+This module handles the routes for managing notifications, allowing users to 
+create, retrieve, update, and delete notifications in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.notification_schema import Notification
+from config.database import NotificationModel
 
 notification_route = APIRouter()
 
@@ -45,7 +50,11 @@ async def update_notification(notification_id: int, notification: Notification =
 @notification_route.delete("/{notification_id}")
 async def delete_notification(notification_id: int):
     """Delete a notification by its ID."""
-    rows_deleted = NotificationModel.delete().where(NotificationModel.id == notification_id).execute()
+    rows_deleted = (
+        NotificationModel.delete()
+        .where(NotificationModel.id == notification_id)
+        .execute()
+    )
     if rows_deleted:
         return {"message": "Notification deleted successfully"}
     raise HTTPException(status_code=404, detail="Notification not found")

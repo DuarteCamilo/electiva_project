@@ -1,6 +1,11 @@
-from schemas.group_schema import Group
-from database import GroupModel
+"""
+This module handles the routes for managing user groups, allowing users to create,
+retrieve, update, and delete groups in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.group_schema import Group
+from config.database import GroupModel
 
 group_route = APIRouter()
 

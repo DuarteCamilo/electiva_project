@@ -1,6 +1,11 @@
-from schemas.ingredient_schema import Ingredient
-from database import IngredientModel, IngredientCategoryModel, UnitModel
+"""
+This module handles the routes for managing ingredient, allowing users to create,
+retrieve, update, and delete ingredient categories in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.ingredient_schema import Ingredient
+from config.database import IngredientModel, IngredientCategoryModel, UnitModel
 
 ingredient_route = APIRouter()
 

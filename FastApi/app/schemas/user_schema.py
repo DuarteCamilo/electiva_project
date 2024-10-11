@@ -1,5 +1,10 @@
+"""Schemas for user models in the application.
+
+This module defines Pydantic models that represent the structure
+and validation for user data within the application.
+"""
+
 from pydantic import BaseModel
-from typing import Optional
 
 class User(BaseModel):
     """Model representing a user."""
@@ -7,4 +12,4 @@ class User(BaseModel):
     username: str
     email: str
     password_hash: str
-    profile_picture: Optional[str] = None
+    profile_picture: str

@@ -1,3 +1,9 @@
+"""Schemas for the Favorite Recipe feature in the application.
+
+This module contains Pydantic models that define the structure
+and validation for favorite recipes within the user context.
+"""
+
 from pydantic import BaseModel
 
 class FavoriteRecipe(BaseModel):

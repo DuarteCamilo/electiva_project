@@ -1,6 +1,11 @@
-from schemas.shopping_list_schema import ShoppingList
-from database import ShoppingListModel
+"""
+This module handles the routes for managing shopping lists, 
+allowing users to create, retrieve, update, and delete their shopping lists.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.shopping_list_schema import ShoppingList
+from config.database import ShoppingListModel
 
 shopping_list_route = APIRouter()
 
@@ -45,7 +50,11 @@ async def update_shopping_list(shopping_list_id: int, shopping_list: ShoppingLis
 @shopping_list_route.delete("/{shopping_list_id}")
 async def delete_shopping_list(shopping_list_id: int):
     """Delete a shopping list by its ID."""
-    rows_deleted = ShoppingListModel.delete().where(ShoppingListModel.id == shopping_list_id).execute()
+    rows_deleted = (
+        ShoppingListModel.delete()
+        .where(ShoppingListModel.id == shopping_list_id)
+        .execute()
+    )
     if rows_deleted:
         return {"message": "Shopping list deleted successfully"}
     raise HTTPException(status_code=404, detail="Shopping list not found")

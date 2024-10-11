@@ -1,6 +1,11 @@
-from schemas.menu_recipe_schema import MenuRecipe
-from database import MenuRecipeModel
+"""
+This module handles the routes for managing menu recipes, allowing users to create,
+retrieve, update, and delete recipes in a menu.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.menu_recipe_schema import MenuRecipe
+from config.database import MenuRecipeModel
 
 menu_recipe_route = APIRouter()
 

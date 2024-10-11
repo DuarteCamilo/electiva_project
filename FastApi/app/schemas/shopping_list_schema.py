@@ -1,3 +1,9 @@
+"""Schemas for shopping list models in the application.
+
+This module defines Pydantic models that represent the structure
+and validation for shopping lists and their attributes.
+"""
+
 from pydantic import BaseModel
 
 class ShoppingList(BaseModel):
