@@ -1,6 +1,11 @@
-from schemas.favorite_recipe_schema import FavoriteRecipe
-from database import FavoriteRecipeModel
+"""
+This module handles the routes for managing favorite recipes, allowing users to create,
+retrieve, and delete favorite recipes in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.favorite_recipe_schema import FavoriteRecipe
+from config.database import FavoriteRecipeModel
 
 favorite_recipe_route = APIRouter()
 
@@ -31,7 +36,11 @@ async def read_favorite_recipe(favorite_recipe_id: int):
 @favorite_recipe_route.delete("/{favorite_recipe_id}")
 async def delete_favorite_recipe(favorite_recipe_id: int):
     """Delete a favorite recipe by its ID."""
-    rows_deleted = FavoriteRecipeModel.delete().where(FavoriteRecipeModel.id == favorite_recipe_id).execute()
+    rows_deleted = (
+        FavoriteRecipeModel.delete()
+        .where(FavoriteRecipeModel.id == favorite_recipe_id)
+        .execute()
+    )
     if rows_deleted:
         return {"message": "Favorite recipe deleted successfully"}
     raise HTTPException(status_code=404, detail="Favorite recipe not found")

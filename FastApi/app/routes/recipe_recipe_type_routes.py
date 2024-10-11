@@ -1,6 +1,11 @@
-from schemas.recipe_recipe_type_schema import RecipeRecipeType
-from database import RecipeRecipeTypeModel
+"""
+This module handles the routes for managing the relationships between recipes and their types, 
+allowing users to create, retrieve, and delete recipe-type associations.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.recipe_recipe_type_schema import RecipeRecipeType
+from config.database import RecipeRecipeTypeModel
 
 recipe_recipe_type_route = APIRouter()
 
@@ -23,7 +28,9 @@ async def read_all_recipe_recipe_types():
 async def read_recipe_recipe_type(recipe_recipe_type_id: int):
     """Retrieve a specific recipe-type relationship by its ID."""
     try:
-        recipe_recipe_type = RecipeRecipeTypeModel.get(RecipeRecipeTypeModel.id == recipe_recipe_type_id)
+        recipe_recipe_type = (
+            RecipeRecipeTypeModel.get(RecipeRecipeTypeModel.id == recipe_recipe_type_id)
+        )
         return recipe_recipe_type
     except Exception as exc:
         raise HTTPException(status_code=404, detail="Recipe-type relationship not found") from exc
@@ -31,7 +38,11 @@ async def read_recipe_recipe_type(recipe_recipe_type_id: int):
 @recipe_recipe_type_route.delete("/{recipe_recipe_type_id}")
 async def delete_recipe_recipe_type(recipe_recipe_type_id: int):
     """Delete a recipe-type relationship by its ID."""
-    rows_deleted = RecipeRecipeTypeModel.delete().where(RecipeRecipeTypeModel.id == recipe_recipe_type_id).execute()
+    rows_deleted = (
+        RecipeRecipeTypeModel.delete()
+        .where(RecipeRecipeTypeModel.id == recipe_recipe_type_id)
+        .execute()
+    )
     if rows_deleted:
         return {"message": "Recipe-type relationship deleted successfully"}
     raise HTTPException(status_code=404, detail="Recipe-type relationship not found")

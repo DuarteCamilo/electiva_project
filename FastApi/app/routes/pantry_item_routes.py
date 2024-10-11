@@ -1,6 +1,11 @@
-from schemas.pantry_item_schema import PantryItem
-from database import PantryItemModel
+"""
+This module handles the routes for managing pantry items, allowing users to 
+create, retrieve, update, and delete pantry items in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.pantry_item_schema import PantryItem
+from config.database import PantryItemModel
 
 pantry_item_route = APIRouter()
 

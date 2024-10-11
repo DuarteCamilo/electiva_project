@@ -1,13 +1,18 @@
-from schemas.ingredient_category_schema import IngredientCategory
-from database import IngredientCategoryModel
+"""
+This module handles the routes for managing ingredient categories, allowing users to create,
+retrieve, update, and delete ingredient categories in the system.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.ingredient_category_schema import IngredientCategory
+from config.database import IngredientCategoryModel
 
 ingredient_category_route = APIRouter()
 
 @ingredient_category_route.post("/")
-async def create_ingredient_category(ingredientCategory: IngredientCategory = Body(...)):
+async def create_ingredient_category(ingredient_category: IngredientCategory = Body(...)):
     """Create a new ingredient category."""
-    IngredientCategoryModel.create(name=ingredientCategory.name)
+    IngredientCategoryModel.create(name=ingredient_category.name)
     return {"message": "Ingredient category created successfully"}
 
 @ingredient_category_route.get("/")
@@ -39,7 +44,11 @@ async def update_ingredient_category(category_id: int, category: IngredientCateg
 @ingredient_category_route.delete("/{category_id}")
 async def delete_ingredient_category(category_id: int):
     """Delete an ingredient category by its ID."""
-    rows_deleted = IngredientCategoryModel.delete().where(IngredientCategoryModel.id == category_id).execute()
+    rows_deleted = (
+        IngredientCategoryModel.delete()
+        .where(IngredientCategoryModel.id == category_id)
+        .execute()
+    )
     if rows_deleted:
         return {"message": "Category deleted successfully"}
     raise HTTPException(status_code=404, detail="Category not found")

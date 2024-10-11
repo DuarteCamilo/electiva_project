@@ -1,6 +1,11 @@
-from schemas.user_schema import User
-from database import UserModel
+"""
+This module handles the routes for managing users,
+allowing the creation, retrieval, updating, and deletion of user accounts.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.user_schema import User
+from config.database import UserModel
 
 user_route = APIRouter()
 

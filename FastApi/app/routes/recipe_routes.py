@@ -1,6 +1,11 @@
-from schemas.recipe_schema import Recipe
-from database import RecipeModel
+"""
+This module handles the routes for managing recipes, 
+allowing users to create, retrieve, update, and delete recipes.
+"""
+
 from fastapi import APIRouter, Body, HTTPException
+from schemas.recipe_schema import Recipe
+from config.database import RecipeModel
 
 recipe_route = APIRouter()
 
@@ -40,6 +45,16 @@ async def update_recipe(recipe_id: int, recipe: Recipe = Body(...)):
     """Update an existing recipe."""
     try:
         existing_recipe = RecipeModel.get(RecipeModel.id == recipe_id)
-        return existing_recipe
+        existing_recipe.name = recipe.name
+        existing_recipe.description = recipe.description
+        existing_recipe.instructions = recipe.instructions
+        existing_recipe.preparation_time = recipe.preparation_time
+        existing_recipe.datosNutricionales = recipe.datosNutricionales
+        existing_recipe.type_id = recipe.type_id
+        existing_recipe.difficulty = recipe.difficulty
+        existing_recipe.is_public = recipe.is_public
+        existing_recipe.user_id = recipe.user_id
+        existing_recipe.save()
+        return {"message": "Recipe updated successfully"}
     except Exception as exc:
-        raise HTTPException(status_code=404, detail="Recipe not actualized") from exc
+        raise HTTPException(status_code=404, detail="Recipe not updated") from exc
